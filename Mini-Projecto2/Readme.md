@@ -48,5 +48,5 @@ Este projeto implementa um sistema de transferência de arquivos usando UDP com 
 ## Testes
 Execute `./test-submission2.sh` para verificação básica do projeto.
 
-## Autores
+## Autor
 Avelino Félix Adelino
