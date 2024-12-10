@@ -1,0 +1,32 @@
+# Vagrantfile para projeto de transferência de dados confiável
+
+Vagrant.configure("2") do |config|
+  # Usar imagem base do Ubuntu
+  config.vm.box = "ubuntu/focal64"
+  
+  # Configurações de provisionamento
+  config.vm.provision "shell", inline: <<-SHELL
+    # Atualizar pacotes
+    apt-get update
+    apt-get upgrade -y
+
+    # Instalar dependências de compilação
+    apt-get install -y build-essential gcc make cmake
+
+    # Configurar diretório de trabalho
+    mkdir -p /vagrant/projeto
+    cd /vagrant/projeto
+
+    # Copiar arquivos do projeto
+    cp -r /vagrant/* /vagrant/projeto/
+
+    # Compilar o projeto
+    make
+
+    # Permissões de execução
+    chmod +x file-sender file-receiver
+  SHELL
+
+  # Configurações de rede (se necessário)
+  config.vm.network "forwarded_port", guest: 1234, host: 1234
+end
